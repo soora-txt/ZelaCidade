@@ -8,7 +8,9 @@ const criarBanco = async () => {
     driver: sqlite3.Database,
   });
 
+
   //Criando a tabela de incidentes
+
 
   await db.exec(`
     CREATE TABLE IF NOT EXISTS incidentes(
@@ -28,7 +30,9 @@ const criarBanco = async () => {
     "Banco de dados configurado: A tabela de registros urbanos está pronta!",
   );
 
+
   //------------------Insert - C do CRUD - CREATE-------------
+
 
   const checagem = await db.get(`SELECT COUNT (*) AS total FROM incidentes`);
 
@@ -49,7 +53,9 @@ const criarBanco = async () => {
     console.log(`Banco pronto com ${checagem.total} de incidentes `);
   }
 
+
   //--------------------Select - R do CRUD - READ-------------
+
 
   const todosOsIncidentes = await db.all("SELECT * FROM incidentes");
   console.table(todosOsIncidentes);
@@ -61,6 +67,7 @@ const criarBanco = async () => {
   );
   console.table(chamadosAna);
 
+
   ///UPDATE
 
   await db.run(`
@@ -71,6 +78,7 @@ const criarBanco = async () => {
 
   console.log("Todas as reclamações do dia 16/03/2026 tiveram uma atualização");
 
+
   //UPDATE 2
 
   await db.run(`
@@ -80,6 +88,7 @@ const criarBanco = async () => {
   `);
 
   console.log("Problema do hospital resolvido");
+
 
   //DELETE
   await db.run(`DELETE FROM incidentes WHERE id = 2 `);
@@ -96,4 +105,4 @@ const criarBanco = async () => {
   return db; //Retorna o banco (Entregando a chave do banco para alguém)
 };
 
-criarBanco();
+ module.exports = { criarBanco } //Cria uma ponte que permite compartilhar funções entre os arquivos
